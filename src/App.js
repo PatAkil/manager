@@ -1,20 +1,30 @@
+/* eslint-disable import/imports-first */
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import firebase from 'firebase';
 import ReduxThunk from 'redux-thunk';
 import reducers from './reducers';
+import {  
+        FIREBASE_API_KEY, 
+        FIREBASE_AUTH_DOMAIN,
+        FIREBASE_DATABASE_URL,
+        FIREBASE_MESSAGING_SENDER_ID,
+        FIREBASE_PROJECT_ID,
+        FIREBASE_STORAGE_BUCKET }
+        from 'react-native-dotenv';
 import LoginForm from './components/LoginForm';
 
 class App extends Component {
   componentWillMount() {
     const config = {
-      apiKey: `${process.env.REACT_APP_FIREBASE_API_KEY_API_KEY}`,
-      authDomain: `${process.env.REACT_APP_FIREBASE_AUTH_DOMAIN}`,
-      databaseURL: `${process.env.REACT_APP_FIREBASE_DATABASE_URL}`,
-      projectId: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}`,
-      storageBucket: `${process.env.REACT_APP_FIREBASE_STORAGE_BUCKET}`,
-      messagingSenderId: `${process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID}`
+      apiKey: FIREBASE_API_KEY,
+      authDomain: FIREBASE_AUTH_DOMAIN,
+      databaseURL: FIREBASE_DATABASE_URL,
+      projectId: FIREBASE_PROJECT_ID,
+      storageBucket: FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: FIREBASE_MESSAGING_SENDER_ID
     };
     firebase.initializeApp(config);
   }

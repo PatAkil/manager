@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
-import { Card, CardSection, InputField, Button } from './common';
+import { Card, CardSection, InputField, Button, Spinner } from './common';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
-import { whileStatement } from '@babel/types';
 
 class LoginForm extends Component {
   onEmailChange(text) {
@@ -30,6 +29,19 @@ class LoginForm extends Component {
     }
   }
 
+  renderButton() {
+    if (this.props.loading) {
+      return <Spinner size="large" />;
+    }
+    return (
+      <Button
+      onPress={this.onButtonPress.bind(this)}
+      >
+        Login
+      </Button>
+    );
+  }
+
   render() {
     return (
       <Card>
@@ -54,11 +66,7 @@ class LoginForm extends Component {
         {this.renderError()}
 
         <CardSection>
-          <Button
-          onPress={this.onButtonPress.bind(this)}
-          >
-            Login
-          </Button>
+          {this.renderButton()}
         </CardSection>
       </Card>
     );
@@ -74,11 +82,12 @@ const styles = {
 }
 
 const mapStateToProps = state => {
-  const { email, password, error } = state.auth;
+  const { email, password, error, loading } = state.auth;
   return {
     email,
     password,
     error,
+    loading,
   };
 };
 
